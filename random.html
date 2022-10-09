@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<title>Movapp experiments - Random</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<body class="container">
+
+<h1 class="fs-4 mt-3 mb-3">Movapp experiments - Random</h1>
+<p>Play random phrase (refresh page for a new phrase).</p>
+
+<div class="card container mt-1 mb-3 pt-3">
+	<div class="row m-1">
+		<button id="btn-play" type="button" class="btn btn-primary btn-lg mt-2 mb-3 fs-6 col-2" title="Play audio">▶️ Play</button>
+		&nbsp;
+		<button id="btn-play-slowly" type="button" class="btn btn-secondary btn-lg mt-2 mb-3 fs-6 col-2">🐢 Play slowly</button>
+	</div>
+
+	<details class="mt-2 mb-2">
+	    <summary>Phrase details</summary>
+	   	<div id="randomPhrase-UK-text">??</div>
+		<audio id="randomPhrase-UK-audio" src="" controls></audio>
+	   	<hr>
+	    <div id="randomPhrase-CZ-text">??</div>
+		<audio id="randomPhrase-CZ-audio" src="" controls></audio>
+	</details>
+</div>
+
+<footer class="text-center fst-italic pt-4">
+	<p><a href="https://github.com/met/movapp-experiments">Source code</a> available (MIT License), this is part of <a href="https://www.movapp.cz/">Movapp project</a>.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="common.js"></script>
+<script>
+'use strict';
+
+function InitUI(dict) {
+	let data = dict.data;
+	let phrases = dict.phrases;
+	let czech_phrases = dict.czech_phrases;
+	let ukrainian_phrases = dict.ukrainian_phrases;
+
+	let random_phrase = RandomArrayItem(phrases);
+
+	document.getElementById('randomPhrase-UK-audio').src = random_phrase.source.sound_url;
+	document.getElementById('randomPhrase-UK-text').innerText = random_phrase.source.translation;
+	document.getElementById('randomPhrase-CZ-audio').src = random_phrase.main.sound_url;
+	document.getElementById('randomPhrase-CZ-text').innerText = random_phrase.main.translation;	
+
+	document.getElementById('btn-play').addEventListener('click', function() {
+		let audio = document.getElementById('randomPhrase-UK-audio');
+		audio.playbackRate = audio.defaultPlaybackRate;
+		audio.currentTime = 0;
+		audio.play();
+	} );
+
+	document.getElementById('btn-play-slowly').addEventListener('click', function() {
+		let audio = document.getElementById('randomPhrase-UK-audio');
+		audio.playbackRate = 0.8;
+		audio.currentTime = 0;
+		audio.play();
+	} );
+}
+
+LoadDictionary(InitUI);
+
+</script>
