@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<meta charset="utf-8">
+<title>Movapp experiments - Alphabetical sort</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<body class="container">
+
+<h1 class="fs-4 mt-3 mb-3">Movapp experiments - Alphabetical sort</h1>
+<p>All phrases sorted alphabetically.</p>
+
+<div class="card container mt-1 mb-3 pt-3">
+<pre id="output-cs"></pre>
+<hr>
+<pre id="output-uk"></pre>
+</div>
+
+<footer class="text-center fst-italic pt-4">
+	<p><a href="https://github.com/met/movapp-experiments">Source code</a> available (MIT License), this is part of <a href="https://www.movapp.cz/">Movapp project</a>.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script src="common.js"></script>
+<script>
+'use strict';
+
+function InitUI(dict) {
+	let data = dict.data;
+	let phrases = dict.phrases;
+	let czech_phrases = dict.czech_phrases;
+	let ukrainian_phrases = dict.ukrainian_phrases;
+
+	let copy_czech_phrases = [...czech_phrases];
+	copy_czech_phrases.sort();
+	document.getElementById('output-cs').innerText = copy_czech_phrases.join('\n');
+
+	let copy_ukrainian_phrases = [...ukrainian_phrases];
+	copy_ukrainian_phrases.sort();
+	document.getElementById('output-uk').innerText = copy_ukrainian_phrases.join('\n');
+}
+
+LoadDictionary(InitUI);
+
+</script>
